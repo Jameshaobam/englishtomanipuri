@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Grandstander&family=Nunito&family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+    <style type="text/css">
+      body {
+        background-color: #f5f5f5;
+        
+      
+        padding: 0;
+        margin: 0;
+        position: relative;
+        height: auto;
+        
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      header {
+        background-color: transparent;
+        width: 90%;
+        margin: auto;
+        padding-top: 2%;
+        text-align: center;
+      }
+      header h1{
+        font-family: 'Pacifico', cursive;
+        font-weight: 400;
+        color: rgb(3, 3, 3);
+      }
+      main {
+        height: 80vh;
+        width: 100%;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 70%;
+        width: 70%;
+
+        margin: auto;
+      }
+      .intro,
+      .note,
+      .form-class {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .intro h3{
+        color: black;
+        font-family: 'Grandstander', cursive;
+      }
+      .note p {
+        margin-left: 10px;
+        font-family: 'Nunito', sans-serif;
+        color: crimson;
+      }
+      .plate {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background-color: rgb(212, 200, 177);
+        z-index: -11;
+        
+      }
+      .form-class {
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+      }
+      .form-class .field {
+        border: 1px solid rgb(0, 147, 245);
+        border-radius: 20px;
+        margin-bottom: 20px;
+        margin-top: 15px;
+        width: 370px;
+        
+      }
+      .form-class input[type="text"] {
+        background-color: transparent;
+        border: none;
+        padding: 6% 4%;
+        text-align: center;
+        outline: none;
+        color: rgb(5, 5, 5);
+      }
+      .form-class input[type="text"]::placeholder {
+        color: rgb(153, 148, 143);
+      }
+      input[type = "submit"]{
+        background-color: rgb(0, 4, 255);
+        color: wheat;
+        border-radius: 20px;
+        width: 100px;
+        height: 50px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        
+      }
+      .result{
+        margin-top: 15px;
+        height: 50%;
+        width: 100%;
+        text-align: center;
+        font-size: 22px;
+      }
+      .result p ,h5{
+        font-family: 'Grandstander', cursive;
+        color: rgb(25, 25, 221);
+      }
+      span{
+        color: rgb(43, 255, 0);
+      }
+
+      @media screen and (max-width:1000px) {
+        h1{
+          font-size: 50px;
+        }
+        .intro h3{
+          font-size: 40px;
+          
+        }
+        .note{
+          font-size: 30px;
+        }
+        .result{
+         
+          height: 1%;
+        }
+        .result p ,h5{
+          font-size: 47px;
+        }
+        .form-class{
+          height: 30%;
+        }
+       
+        input[type = "submit"]{
+          font-size: 20px;
+        }
+        .form-class input[type="text"]::placeholder {
+          font-size: 24px;
+        }
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome <br> English to Manipuri</h1>
+    </header>
+    <main>
+      <section class="main">
+        <div class="intro">
+          <h3>
+           <span>"</span> Have you ever wanted to know how to say some sentence or words in
+            Manipuri?<span>"</span>
+          </h3>
+        </div>
+        <div class="note">
+          <label for="">Note:</label>
+          <p>
+             Type in the exact words of English you want to say in
+            Manipuri
+          </p>
+        </div>
+
+        <form class="form-class" action="{% url 'convert' %}" method="post">
+          {% csrf_token %}
+          <label for="field" style="color:#000;font-size : 35px;font-family: 'Caveat', cursive;">English word/sentence</label>
+          <div class="field">
+            <input id="field" type="text" autocomplete="off" placeholder="English here" name="english" />
+          </div>
+
+          <input type="submit" value="Search" />
+        </form>
+
+        <div class="result">
+            {% if msg %}
+            
+            <p>{{msg}}</p>
+            {% else %}
+             {% for i in word %}
+           
+        
+              <h5>English: {{i.English}}  </h5>
+              <h5>Manipuri: {{i.Manipuri}}</h5>
+              
+              {% endfor %} 
+          {% endif %}
+        </div>
+      </section>
+      <div class="plate"></div>
+    </main>
+  </body>
+</html>
