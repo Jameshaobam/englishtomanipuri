@@ -25,7 +25,7 @@ SECRET_KEY = '9i=siyz6+dbuc#s8^@a1!-%pvh=773^5822$@u)lg+o(#m_%fq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['Jameshaobam.pythonanywhere.com']
 
 
 # Application definition
@@ -121,3 +121,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+try:
+    from  .local_settings import *
+
+except ImportError:
+    print("You are on production!")
